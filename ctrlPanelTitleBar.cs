@@ -10,11 +10,11 @@ namespace Modern_Calculator
 
         public ctrlPanelTitleBar()
         {
-            this.MouseDown += ctrlPanelTitleBar_MouseDown;
-            this.MouseMove += ctrlPanelTitleBar_MouseMove;
+            this.MouseDown += OnMouseDown;
+            this.MouseMove += OnMouseMove;
         }
 
-        private void ctrlPanelTitleBar_MouseDown(object sender, MouseEventArgs e)
+        private void OnMouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -22,7 +22,7 @@ namespace Modern_Calculator
             }
         }
 
-        private void ctrlPanelTitleBar_MouseMove(object sender, MouseEventArgs e)
+        private void OnMouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -31,11 +31,12 @@ namespace Modern_Calculator
                 if (form != null)
                 {
                     form.Location = new Point(
-                        form.Location.X + (e.X - _mouseLocation.X),
-                        form.Location.Y + (e.Y - _mouseLocation.Y));
+                    form.Location.X + (e.X - _mouseLocation.X),
+                    form.Location.Y + (e.Y - _mouseLocation.Y));
                 }
             }
         }
+
     }
 
 }
