@@ -148,6 +148,7 @@
             this.btnMaxmize.Size = new System.Drawing.Size(37, 40);
             this.btnMaxmize.TabIndex = 0;
             this.btnMaxmize.UseVisualStyleBackColor = false;
+            this.btnMaxmize.Click += new System.EventHandler(this.btnMaximize_Click);
             // 
             // btnClose
             // 

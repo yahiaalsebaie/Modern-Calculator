@@ -45,7 +45,13 @@ namespace Modern_Calculator
             }
             else
             {
-                textBox1.Text += btn.Text;
+                string rawText = (textBox1.Text + btn.Text).Replace(",", "");
+                if(double.TryParse(rawText,out double parsedValue))
+                {
+                    if (textBox1.Text.Contains("."))
+                        textBox1.Text += btn.Text;
+                    else textBox1.Text = FormattedNumber(parsedValue);
+                }
             }
 
         }
@@ -109,7 +115,7 @@ namespace Modern_Calculator
                 _PendingOperation = _Operation;
 
 
-            textBox2.Text = _firstNumber + " " + btn.Text + " ";
+            textBox2.Text = FormattedNumber(_firstNumber) + " " + btn.Text + " ";
             //textBox2.Text = $"{_firstNumber} {btnOp.Tag} ";
             _isNewEntry = true;
 
@@ -160,6 +166,7 @@ namespace Modern_Calculator
                 textBox1.Text = _secondNumber.ToString();
 
                 // Update textBox2
+
                 if (_hasResult)
                 {
                     textBox2.Text = $"{_firstNumber} {GetOperationSymbol(_PendingOperation)} {_secondNumber}";
@@ -222,7 +229,7 @@ namespace Modern_Calculator
                     //_isNewEntry = true;
                     break;
             }
-            textBox1.Text = _result.ToString();
+            textBox1.Text = FormattedNumber(_result);
      
             // Update textBox2
             if (_hasResult)
@@ -275,9 +282,9 @@ namespace Modern_Calculator
                     break;
             }
 
-            textBox1.Text = _result.ToString();
+            textBox1.Text = FormattedNumber(_result);
       //      textBox2.Text += _secondNumber.ToString();
-            textBox2.Text = $"{_firstNumber} {GetOperationSymbol(operationToExecute)} {_secondNumber} =";
+            textBox2.Text = $"{FormattedNumber(_firstNumber)} {GetOperationSymbol(operationToExecute)} {FormattedNumber(_secondNumber)} =";
             _isNewEntry = true;
             _hasResult = false;
             /*textBox1.Text = _result.ToString();
@@ -332,8 +339,6 @@ namespace Modern_Calculator
             }
             textBox1.Text = "0";
         }
-
-
 
         // Remove Form Border & Create Your Own Title Bar | C# WinForms
         //---------------------------------------------------------------
@@ -396,6 +401,11 @@ namespace Modern_Calculator
             _mouseLocation = e.Location;
         }
 
+        private void btnMaximize_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void pnlTitle_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -407,6 +417,9 @@ namespace Modern_Calculator
             }
         }
 
-
+      private string FormattedNumber(double number)
+        {
+            return number.ToString("#,##0.#######################");
+        }
     }
 }
