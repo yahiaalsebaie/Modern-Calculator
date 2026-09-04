@@ -135,7 +135,12 @@ namespace Modern_Calculator
                     return "";
             }
         }
-
+        private void SetErrorState(string message)
+        {
+            _isError = true;
+            textBox1.Font = new Font(textBox1.Font.FontFamily, 20, textBox1.Font.Style);
+            textBox1.Text = message;
+        }
         private void UnaryOperations_Click(object sender, EventArgs e)
         {
             if (_isError) return;
@@ -179,9 +184,7 @@ namespace Modern_Calculator
                 case enOperation.Reciprocal:
                     if (val == 0)
                     {
-                        _isError = true;
-                        textBox1.Font = new Font(textBox1.Font.FontFamily, 20, textBox1.Font.Style);
-                        textBox1.Text = "Cannot divide by zero";
+                        SetErrorState("Cannot divide by zero")
                         return;
                     }
                     _result = 1.0 / val;
@@ -192,9 +195,7 @@ namespace Modern_Calculator
                 case enOperation.SquareRoot:
                     if (val < 0)
                     {
-                        _isError = true;
-                        textBox1.Font = new Font(textBox1.Font.FontFamily, 20, textBox1.Font.Style);
-                        textBox1.Text = "Invalid input";
+                        SetErrorState("Invalid input")
                         return;
                     }
                     _result = Math.Sqrt(val);
@@ -249,9 +250,7 @@ namespace Modern_Calculator
                     if (_secondNumber == 0)
                     {
                         //MessageBox.Show("Cannot Divide by Zero."); 
-                        _isError = true;
-                        textBox1.Font = new Font(textBox1.Font.FontFamily, 20, textBox1.Font.Style);
-                        textBox1.Text = "Cannot divide by zero";
+                        SetErrorState("Cannot divide by zero");
                         return;
                     }
                     _result = _firstNumber / _secondNumber;
