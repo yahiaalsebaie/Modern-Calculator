@@ -46,7 +46,7 @@ namespace Modern_Calculator
             else
             {
                 string rawText = (textBox1.Text + btn.Text).Replace(",", "");
-                if(double.TryParse(rawText,out double parsedValue))
+                if (double.TryParse(rawText, out double parsedValue))
                 {
                     if (textBox1.Text.Contains("."))
                         textBox1.Text += btn.Text;
@@ -183,14 +183,14 @@ namespace Modern_Calculator
             string formattedExpression = "";
             switch (_Operation)
             {
-              /*  case enOperation.Percentage:
-                    double PercentageVal = double.Parse(textBox1.Text);
-                    _secondNumber = (_firstNumber * (PercentageVal) / 100.0);
-                    _result = _secondNumber;
-                    textBox1.Text = _result.ToString();
-                    textBox2.Text = _firstNumber + GetOperationSymbol(_PendingOperation) + " " + _result;
-                    _isNewEntry = true;
-                    break;*/
+                /*  case enOperation.Percentage:
+                      double PercentageVal = double.Parse(textBox1.Text);
+                      _secondNumber = (_firstNumber * (PercentageVal) / 100.0);
+                      _result = _secondNumber;
+                      textBox1.Text = _result.ToString();
+                      textBox2.Text = _firstNumber + GetOperationSymbol(_PendingOperation) + " " + _result;
+                      _isNewEntry = true;
+                      break;*/
                 case enOperation.Reciprocal:
                     if (val == 0)
                     {
@@ -230,7 +230,7 @@ namespace Modern_Calculator
                     break;
             }
             textBox1.Text = FormattedNumber(_result);
-     
+
             // Update textBox2
             if (_hasResult)
             {
@@ -283,7 +283,7 @@ namespace Modern_Calculator
             }
 
             textBox1.Text = FormattedNumber(_result);
-      //      textBox2.Text += _secondNumber.ToString();
+            //      textBox2.Text += _secondNumber.ToString();
             textBox2.Text = $"{FormattedNumber(_firstNumber)} {GetOperationSymbol(operationToExecute)} {FormattedNumber(_secondNumber)} =";
             _isNewEntry = true;
             _hasResult = false;
@@ -401,9 +401,9 @@ namespace Modern_Calculator
             _mouseLocation = e.Location;
         }
 
-        private void btnMaximize_Click(object sender, EventArgs e)
+        private void btnMinimize_Click(object sender, EventArgs e)
         {
-
+           this.WindowState = FormWindowState.Minimized;
         }
 
         private void pnlTitle_MouseMove(object sender, MouseEventArgs e)
@@ -417,7 +417,7 @@ namespace Modern_Calculator
             }
         }
 
-      private string FormattedNumber(double number)
+        private string FormattedNumber(double number)
         {
             return number.ToString("#,##0.#######################");
         }
