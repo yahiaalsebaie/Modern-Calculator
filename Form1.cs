@@ -143,8 +143,11 @@ namespace Modern_Calculator
         }
         private void UnaryOperations_Click(object sender, EventArgs e)
         {
+
             if (_isError) return;
             ctrlRoundedButton btn = (ctrlRoundedButton)sender;
+            PerformOperationSymbols(btn);
+
             double val = double.Parse(textBox1.Text);
 
             if (btn.Tag.ToString() == "%")
@@ -170,7 +173,7 @@ namespace Modern_Calculator
                 return;
             }
 
-
+            string formattedExpression = "";
             switch (_Operation)
             {
               /*  case enOperation.Percentage:
@@ -184,41 +187,52 @@ namespace Modern_Calculator
                 case enOperation.Reciprocal:
                     if (val == 0)
                     {
-                        SetErrorState("Cannot divide by zero")
+                        SetErrorState("Cannot divide by zero");
                         return;
                     }
                     _result = 1.0 / val;
-                    textBox1.Text = _result.ToString();
-                    textBox2.Text = "⅟(" + val + ")";
-                    _isNewEntry = true;
+                    //textBox1.Text = _result.ToString();
+                    formattedExpression = "⅟(" + val + ")";
+                    //_isNewEntry = true;
                     break;
                 case enOperation.SquareRoot:
                     if (val < 0)
                     {
-                        SetErrorState("Invalid input")
+                        SetErrorState("Invalid input");
                         return;
                     }
                     _result = Math.Sqrt(val);
-                    textBox1.Text = _result.ToString();
-                    textBox2.Text = "²√(" + val + ")";
-                    _isNewEntry = true;
+                    //textBox1.Text = _result.ToString();
+                    formattedExpression = "²√(" + val + ")";
+                    //_isNewEntry = true;
                     break;
 
                 case enOperation.PowerOf2:
                     _result = val * val;
-                    textBox1.Text = _result.ToString();
-                    textBox2.Text = "(" + val + ")²";
-                    _isNewEntry = true;
+                    //textBox1.Text = _result.ToString();
+                    formattedExpression = "(" + val + ")²";
+                    //_isNewEntry = true;
                     break;
 
                 case enOperation.Plus_Minus:
                     _result = -val;
-                    textBox1.Text = _result.ToString();
-                    textBox2.Text = "±(" + val + ")";
+                    //textBox1.Text = _result.ToString();
+                    formattedExpression = "±(" + val + ")";
 
-                    _isNewEntry = true;
+                    //_isNewEntry = true;
                     break;
             }
+            textBox1.Text = _result.ToString();
+     
+            // Update textBox2
+            if (_hasResult)
+            {
+                textBox2.Text = $"{_firstNumber} {GetOperationSymbol(_PendingOperation)} {_secondNumber}";
+            }
+            else textBox2.Text = formattedExpression;
+
+            _secondNumber = _result;
+            _isNewEntry = true;
 
         }
 
