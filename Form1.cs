@@ -87,7 +87,7 @@ namespace Modern_Calculator
             }
 
             PerformOperationSymbols(btn);
-
+            _PendingOperation = _Operation;
             //   UnaryOperations(btnOp);
 
 
@@ -246,7 +246,8 @@ namespace Modern_Calculator
             if (!_isNewEntry)
                 _secondNumber = double.Parse(textBox1.Text);
 
-            enOperation operationToExecute = _Operation == _PendingOperation ? _PendingOperation : _Operation;
+            //   enOperation operationToExecute = _Operation == _PendingOperation ? _PendingOperation : _Operation;
+            enOperation operationToExecute = _PendingOperation;
 
 
             switch (operationToExecute)
