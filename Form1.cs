@@ -16,9 +16,10 @@ namespace Modern_Calculator
         private Font _originalFont;
         private enum enOperation
         {
-            Add, Subtract, Multiply, Divide
+            Add, Subtract, Multiply, Divide, Percentage, Reciprocal, SquareRoot, PowerOf2, Plus_Minus
         }
         private enOperation _Operation;
+        private enOperation _PendingOperation;
         public Form1()
         {
             InitializeComponent();
@@ -49,23 +50,8 @@ namespace Modern_Calculator
 
         }
 
-        private void Operations_Click(object sender, EventArgs e)
+        private void PerformOperationSymbols(ctrlRoundedButton btn)
         {
-            ctrlRoundedButton btn = (ctrlRoundedButton)sender;
-
-            if (!_hasResult)
-            {
-                _firstNumber = double.Parse(textBox1.Text);
-                _result = _firstNumber;
-                _hasResult = true;
-            }
-            else if (!_isNewEntry)
-            {
-
-                btnEqual.PerformClick();
-                _firstNumber = _result;
-            }
-            else _firstNumber = _result;
 
             switch (btn.Tag.ToString())
             {
@@ -77,19 +63,178 @@ namespace Modern_Calculator
                     _Operation = enOperation.Multiply; break;
                 case "/":
                     _Operation = enOperation.Divide; break;
+                case "%":
+                    _Operation = enOperation.Percentage; break;
+                case "⅟x":
+                    _Operation = enOperation.Reciprocal; break;
+                case "²√x":
+                    _Operation = enOperation.SquareRoot; break;
+                case "x²":
+                    _Operation = enOperation.PowerOf2; break;
+                case "±":
+                    _Operation = enOperation.Plus_Minus; break;
+
+            }
+        }
+        private void Operations_Click(object sender, EventArgs e)
+        {
+            ctrlRoundedButton btn = (ctrlRoundedButton)sender;
+
+            if (_isError)
+            {
+                btnC.PerformClick();
+                return;
             }
 
+            PerformOperationSymbols(btn);
+
+            //   UnaryOperations(btnOp);
+
+
+            if (!_hasResult)
+            {
+                _firstNumber = double.Parse(textBox1.Text);
+                _result = _firstNumber;
+                _hasResult = true;
+            }
+            else if (!_isNewEntry)
+            {
+                btnEqual.PerformClick();
+                if (_isError) return;
+                _firstNumber = _result;
+            }
+            else _firstNumber = _result;
+
+            if (_Operation == enOperation.Add || _Operation == enOperation.Subtract || _Operation == enOperation.Divide || _Operation == enOperation.Multiply)
+                _PendingOperation = _Operation;
+
+
             textBox2.Text = _firstNumber + " " + btn.Text + " ";
-            //textBox2.Text = $"{_firstNumber} {btn.Tag} ";
+            //textBox2.Text = $"{_firstNumber} {btnOp.Tag} ";
             _isNewEntry = true;
+
+        }
+
+        private string GetOperationSymbol(enOperation operation)
+        {
+            switch (operation)
+            {
+                case enOperation.Add:
+                    return "+";
+
+                case enOperation.Subtract:
+                    return "-";
+
+                case enOperation.Multiply:
+                    return "×";
+
+                case enOperation.Divide:
+                    return "÷";
+
+                default:
+                    return "";
+            }
+        }
+
+        private void UnaryOperations_Click(object sender, EventArgs e)
+        {
+            if (_isError) return;
+            ctrlRoundedButton btn = (ctrlRoundedButton)sender;
+            double val = double.Parse(textBox1.Text);
+
+            if (btn.Tag.ToString() == "%")
+            {
+                if (_hasResult)
+                    _secondNumber = (_firstNumber * val) / 100.0;
+                else
+                    _secondNumber = val / 100.0;
+
+                textBox1.Text = _secondNumber.ToString();
+
+                // Update textBox2
+                if (_hasResult)
+                {
+                    textBox2.Text = $"{_firstNumber} {GetOperationSymbol(_PendingOperation)} {_secondNumber}";
+                }
+                else
+                {
+                    textBox2.Text = _secondNumber.ToString();
+                }
+
+                _isNewEntry = true;
+                return;
+            }
+
+
+            switch (_Operation)
+            {
+              /*  case enOperation.Percentage:
+                    double PercentageVal = double.Parse(textBox1.Text);
+                    _secondNumber = (_firstNumber * (PercentageVal) / 100.0);
+                    _result = _secondNumber;
+                    textBox1.Text = _result.ToString();
+                    textBox2.Text = _firstNumber + GetOperationSymbol(_PendingOperation) + " " + _result;
+                    _isNewEntry = true;
+                    break;*/
+                case enOperation.Reciprocal:
+                    if (val == 0)
+                    {
+                        _isError = true;
+                        textBox1.Font = new Font(textBox1.Font.FontFamily, 20, textBox1.Font.Style);
+                        textBox1.Text = "Cannot divide by zero";
+                        return;
+                    }
+                    _result = 1.0 / val;
+                    textBox1.Text = _result.ToString();
+                    textBox2.Text = "⅟(" + val + ")";
+                    _isNewEntry = true;
+                    break;
+                case enOperation.SquareRoot:
+                    if (val < 0)
+                    {
+                        _isError = true;
+                        textBox1.Font = new Font(textBox1.Font.FontFamily, 20, textBox1.Font.Style);
+                        textBox1.Text = "Invalid input";
+                        return;
+                    }
+                    _result = Math.Sqrt(val);
+                    textBox1.Text = _result.ToString();
+                    textBox2.Text = "²√(" + val + ")";
+                    _isNewEntry = true;
+                    break;
+
+                case enOperation.PowerOf2:
+                    _result = val * val;
+                    textBox1.Text = _result.ToString();
+                    textBox2.Text = "(" + val + ")²";
+                    _isNewEntry = true;
+                    break;
+
+                case enOperation.Plus_Minus:
+                    _result = -val;
+                    textBox1.Text = _result.ToString();
+                    textBox2.Text = "±(" + val + ")";
+
+                    _isNewEntry = true;
+                    break;
+            }
 
         }
 
         private void btnEqual_Click(object sender, EventArgs e)
         {
-            if (_isError) btnC.PerformClick();
-            _secondNumber = double.Parse(textBox1.Text);
-            switch (_Operation)
+            if (_isError)
+            {
+                btnC.PerformClick();
+                return;
+            }
+            if (!_isNewEntry)
+                _secondNumber = double.Parse(textBox1.Text);
+
+            enOperation operationToExecute = _Operation == _PendingOperation ? _PendingOperation : _Operation;
+
+
+            switch (operationToExecute)
             {
                 case enOperation.Add:
                     _result = _firstNumber + _secondNumber;
@@ -111,12 +256,25 @@ namespace Modern_Calculator
                     }
                     _result = _firstNumber / _secondNumber;
                     break;
+
                 default:
                     break;
             }
+
             textBox1.Text = _result.ToString();
-            textBox2.Text += _secondNumber.ToString();
+      //      textBox2.Text += _secondNumber.ToString();
+            textBox2.Text = $"{_firstNumber} {GetOperationSymbol(operationToExecute)} {_secondNumber} =";
             _isNewEntry = true;
+            _hasResult = false;
+            /*textBox1.Text = _result.ToString();
+
+            string opSymbol = (_Operation == enOperation.Add) ? "+" :
+                             (_Operation == enOperation.Subtract) ? "-" :
+                             (_Operation == enOperation.Multiply) ? "×" : "÷";
+
+            textBox2.Text = $"{_firstNumber} {opSymbol} {_secondNumber} =";
+
+            _isNewEntry = true;*/
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -136,30 +294,15 @@ namespace Modern_Calculator
 
         }
 
-
-
-        // How to Move a Borderless Form in C# WinForms
-        private void pnlTitle_MouseDown(object sender, MouseEventArgs e)
-        {
-            _mouseLocation = e.Location;
-        }
-
-        private void pnlTitle_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                Location = new Point(
-                    // Old Form X + (Current Mouse X - Initial Mouse X)
-                    Location.X + e.X - _mouseLocation.X,
-                    Location.Y + e.Y - _mouseLocation.Y);
-            }
-        }
-
         private void btnBackSpace_Click(object sender, EventArgs e)
         {
-            if (_isError) btnC.PerformClick();
+            if (_isError)
+            {
+                btnC.PerformClick();
+                return;
+            }
             if (textBox1.Text.Length > 0) textBox1.Text = textBox1.Text.Remove(textBox1.Text.Length - 1, 1);
-          //  if (textBox1.Text.Length > 0) textBox1.Text = textBox1.Text.Substring(0, textBox1.Text.Length - 1);
+            //  if (textBox1.Text.Length > 0) textBox1.Text = textBox1.Text.Substring(0, textBox1.Text.Length - 1);
             if (textBox1.Text == string.Empty) textBox1.Text = "0";
 
 
@@ -167,8 +310,8 @@ namespace Modern_Calculator
 
         private void btnCE_Click(object sender, EventArgs e)
         {
-        //    textBox1.Clear();
-        if(_isError)
+            //    textBox1.Clear();
+            if (_isError)
             {
                 btnC.PerformClick();
                 return;
@@ -232,6 +375,24 @@ namespace Modern_Calculator
             */
 
         }
+
+        // How to Move a Borderless Form in C# WinForms
+        private void pnlTitle_MouseDown(object sender, MouseEventArgs e)
+        {
+            _mouseLocation = e.Location;
+        }
+
+        private void pnlTitle_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Location = new Point(
+                    // Old Form X + (Current Mouse X - Initial Mouse X)
+                    Location.X + e.X - _mouseLocation.X,
+                    Location.Y + e.Y - _mouseLocation.Y);
+            }
+        }
+
 
     }
 }

@@ -255,7 +255,7 @@
             this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBox1.Font = new System.Drawing.Font("Myanmar Text", 30.8F, System.Drawing.FontStyle.Bold);
+            this.textBox1.Font = new System.Drawing.Font("Myanmar Text", 24.25F, System.Drawing.FontStyle.Bold);
             this.textBox1.ForeColor = System.Drawing.Color.White;
             this.textBox1.Location = new System.Drawing.Point(0, 119);
             this.textBox1.Multiline = true;
@@ -293,8 +293,10 @@
             this.btnPlusMinus.Name = "btnPlusMinus";
             this.btnPlusMinus.Size = new System.Drawing.Size(85, 55);
             this.btnPlusMinus.TabIndex = 5;
+            this.btnPlusMinus.Tag = "±";
             this.btnPlusMinus.Text = "±";
             this.btnPlusMinus.UseVisualStyleBackColor = false;
+            this.btnPlusMinus.Click += new System.EventHandler(this.UnaryOperations_Click);
             // 
             // btnNum2
             // 
@@ -362,12 +364,15 @@
             this.btn1X.BorderRadius = 15;
             this.btn1X.FlatAppearance.BorderSize = 0;
             this.btn1X.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn1X.Font = new System.Drawing.Font("Myanmar Text", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn1X.Location = new System.Drawing.Point(2, 285);
             this.btn1X.Name = "btn1X";
             this.btn1X.Size = new System.Drawing.Size(85, 55);
             this.btn1X.TabIndex = 5;
-            this.btn1X.Text = "1/x";
+            this.btn1X.Tag = "⅟x";
+            this.btn1X.Text = "⅟x";
             this.btn1X.UseVisualStyleBackColor = false;
+            this.btn1X.Click += new System.EventHandler(this.UnaryOperations_Click);
             // 
             // btnNum0
             // 
@@ -379,6 +384,7 @@
             this.btnNum0.Name = "btnNum0";
             this.btnNum0.Size = new System.Drawing.Size(85, 55);
             this.btnNum0.TabIndex = 5;
+            this.btnNum0.Tag = "0";
             this.btnNum0.Text = "0";
             this.btnNum0.UseVisualStyleBackColor = false;
             this.btnNum0.Click += new System.EventHandler(this.Num_Click);
@@ -423,8 +429,10 @@
             this.btnPercent.Name = "btnPercent";
             this.btnPercent.Size = new System.Drawing.Size(85, 55);
             this.btnPercent.TabIndex = 5;
+            this.btnPercent.Tag = "%";
             this.btnPercent.Text = "%";
             this.btnPercent.UseVisualStyleBackColor = false;
+            this.btnPercent.Click += new System.EventHandler(this.UnaryOperations_Click);
             // 
             // btnX2
             // 
@@ -436,8 +444,10 @@
             this.btnX2.Name = "btnX2";
             this.btnX2.Size = new System.Drawing.Size(85, 55);
             this.btnX2.TabIndex = 5;
+            this.btnX2.Tag = "x²";
             this.btnX2.Text = "x²";
             this.btnX2.UseVisualStyleBackColor = false;
+            this.btnX2.Click += new System.EventHandler(this.UnaryOperations_Click);
             // 
             // ctrlRoundedButton24
             // 
@@ -509,6 +519,7 @@
             this.btnCE.Name = "btnCE";
             this.btnCE.Size = new System.Drawing.Size(85, 55);
             this.btnCE.TabIndex = 5;
+            this.btnCE.Tag = "CE";
             this.btnCE.Text = "CE";
             this.btnCE.UseVisualStyleBackColor = false;
             this.btnCE.Click += new System.EventHandler(this.btnCE_Click);
@@ -523,8 +534,10 @@
             this.btnSquare.Name = "btnSquare";
             this.btnSquare.Size = new System.Drawing.Size(85, 55);
             this.btnSquare.TabIndex = 5;
+            this.btnSquare.Tag = "²√x";
             this.btnSquare.Text = "²√x";
             this.btnSquare.UseVisualStyleBackColor = false;
+            this.btnSquare.Click += new System.EventHandler(this.UnaryOperations_Click);
             // 
             // btnC
             // 
@@ -536,6 +549,7 @@
             this.btnC.Name = "btnC";
             this.btnC.Size = new System.Drawing.Size(85, 55);
             this.btnC.TabIndex = 5;
+            this.btnC.Tag = "C";
             this.btnC.Text = "C";
             this.btnC.UseVisualStyleBackColor = false;
             this.btnC.Click += new System.EventHandler(this.btnC_Click);
@@ -626,6 +640,7 @@
             this.btnBackSpace.Name = "btnBackSpace";
             this.btnBackSpace.Size = new System.Drawing.Size(85, 55);
             this.btnBackSpace.TabIndex = 5;
+            this.btnBackSpace.Tag = "BackSpace";
             this.btnBackSpace.UseVisualStyleBackColor = false;
             this.btnBackSpace.Click += new System.EventHandler(this.btnBackSpace_Click);
             // 
