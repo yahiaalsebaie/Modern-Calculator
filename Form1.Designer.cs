@@ -36,16 +36,16 @@
             this.btnMaxmize = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.pnlHistory = new System.Windows.Forms.Panel();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.rtbHistory = new System.Windows.Forms.RichTextBox();
             this.btnClearHistory = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnMenu = new System.Windows.Forms.Button();
             this.btnHistory = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.btn1 = new System.Windows.Forms.Button();
-            this.btn2 = new System.Windows.Forms.Button();
             this.btnPlusMinus = new ctrlRoundedButton();
+            this.btnNum2 = new ctrlRoundedButton();
+            this.btnNum1 = new ctrlRoundedButton();
             this.btnNum4 = new ctrlRoundedButton();
             this.btnNum7 = new ctrlRoundedButton();
             this.btn1X = new ctrlRoundedButton();
@@ -168,7 +168,7 @@
             // 
             // pnlHistory
             // 
-            this.pnlHistory.Controls.Add(this.richTextBox1);
+            this.pnlHistory.Controls.Add(this.rtbHistory);
             this.pnlHistory.Controls.Add(this.btnClearHistory);
             this.pnlHistory.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlHistory.Location = new System.Drawing.Point(0, 590);
@@ -177,19 +177,19 @@
             this.pnlHistory.Size = new System.Drawing.Size(350, 5);
             this.pnlHistory.TabIndex = 1;
             // 
-            // richTextBox1
+            // rtbHistory
             // 
-            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.ForeColor = System.Drawing.Color.DarkGray;
-            this.richTextBox1.Location = new System.Drawing.Point(0, 0);
-            this.richTextBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Horizontal;
-            this.richTextBox1.Size = new System.Drawing.Size(350, 0);
-            this.richTextBox1.TabIndex = 2;
-            this.richTextBox1.Text = "";
+            this.rtbHistory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.rtbHistory.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtbHistory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbHistory.ForeColor = System.Drawing.Color.DarkGray;
+            this.rtbHistory.Location = new System.Drawing.Point(0, 0);
+            this.rtbHistory.Margin = new System.Windows.Forms.Padding(0);
+            this.rtbHistory.Name = "rtbHistory";
+            this.rtbHistory.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Horizontal;
+            this.rtbHistory.Size = new System.Drawing.Size(350, 0);
+            this.rtbHistory.TabIndex = 2;
+            this.rtbHistory.Text = "";
             // 
             // btnClearHistory
             // 
@@ -233,7 +233,6 @@
             this.btnMenu.Size = new System.Drawing.Size(35, 46);
             this.btnMenu.TabIndex = 0;
             this.btnMenu.UseVisualStyleBackColor = false;
-            this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
             // 
             // btnHistory
             // 
@@ -261,10 +260,12 @@
             this.textBox1.Location = new System.Drawing.Point(0, 119);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.textBox1.ReadOnly = true;
+            this.textBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.textBox1.Size = new System.Drawing.Size(350, 62);
             this.textBox1.TabIndex = 3;
             this.textBox1.Text = "0";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // textBox2
             // 
@@ -276,32 +277,11 @@
             this.textBox2.Location = new System.Drawing.Point(0, 86);
             this.textBox2.Margin = new System.Windows.Forms.Padding(0);
             this.textBox2.Name = "textBox2";
-            this.textBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(350, 33);
             this.textBox2.TabIndex = 3;
             this.textBox2.Text = "0";
-            // 
-            // btn1
-            // 
-            this.btn1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(59)))), ((int)(((byte)(59)))));
-            this.btn1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn1.Location = new System.Drawing.Point(0, 467);
-            this.btn1.Name = "btn1";
-            this.btn1.Size = new System.Drawing.Size(87, 53);
-            this.btn1.TabIndex = 6;
-            this.btn1.Text = "btn1";
-            this.btn1.UseVisualStyleBackColor = false;
-            // 
-            // btn2
-            // 
-            this.btn2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(59)))), ((int)(((byte)(59)))));
-            this.btn2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btn2.Location = new System.Drawing.Point(90, 467);
-            this.btn2.Name = "btn2";
-            this.btn2.Size = new System.Drawing.Size(85, 53);
-            this.btn2.TabIndex = 6;
-            this.btn2.Text = "btn2";
-            this.btn2.UseVisualStyleBackColor = false;
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // btnPlusMinus
             // 
@@ -316,16 +296,47 @@
             this.btnPlusMinus.Text = "±";
             this.btnPlusMinus.UseVisualStyleBackColor = false;
             // 
+            // btnNum2
+            // 
+            this.btnNum2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(59)))), ((int)(((byte)(59)))));
+            this.btnNum2.BorderRadius = 15;
+            this.btnNum2.FlatAppearance.BorderSize = 0;
+            this.btnNum2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNum2.Location = new System.Drawing.Point(89, 465);
+            this.btnNum2.Name = "btnNum2";
+            this.btnNum2.Size = new System.Drawing.Size(85, 55);
+            this.btnNum2.TabIndex = 5;
+            this.btnNum2.Tag = "2";
+            this.btnNum2.Text = "2";
+            this.btnNum2.UseVisualStyleBackColor = false;
+            this.btnNum2.Click += new System.EventHandler(this.Num_Click);
+            // 
+            // btnNum1
+            // 
+            this.btnNum1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(59)))), ((int)(((byte)(59)))));
+            this.btnNum1.BorderRadius = 15;
+            this.btnNum1.FlatAppearance.BorderSize = 0;
+            this.btnNum1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNum1.Location = new System.Drawing.Point(2, 465);
+            this.btnNum1.Name = "btnNum1";
+            this.btnNum1.Size = new System.Drawing.Size(85, 55);
+            this.btnNum1.TabIndex = 5;
+            this.btnNum1.Tag = "1";
+            this.btnNum1.Text = "1";
+            this.btnNum1.UseVisualStyleBackColor = false;
+            this.btnNum1.Click += new System.EventHandler(this.Num_Click);
+            // 
             // btnNum4
             // 
             this.btnNum4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(59)))), ((int)(((byte)(59)))));
-            this.btnNum4.BorderRadius = 150;
+            this.btnNum4.BorderRadius = 15;
             this.btnNum4.FlatAppearance.BorderSize = 0;
             this.btnNum4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNum4.Location = new System.Drawing.Point(2, 405);
             this.btnNum4.Name = "btnNum4";
             this.btnNum4.Size = new System.Drawing.Size(85, 55);
             this.btnNum4.TabIndex = 5;
+            this.btnNum4.Tag = "4";
             this.btnNum4.Text = "4";
             this.btnNum4.UseVisualStyleBackColor = false;
             this.btnNum4.Click += new System.EventHandler(this.Num_Click);
@@ -340,6 +351,7 @@
             this.btnNum7.Name = "btnNum7";
             this.btnNum7.Size = new System.Drawing.Size(85, 55);
             this.btnNum7.TabIndex = 5;
+            this.btnNum7.Tag = "7";
             this.btnNum7.Text = "7";
             this.btnNum7.UseVisualStyleBackColor = false;
             this.btnNum7.Click += new System.EventHandler(this.Num_Click);
@@ -363,7 +375,7 @@
             this.btnNum0.BorderRadius = 15;
             this.btnNum0.FlatAppearance.BorderSize = 0;
             this.btnNum0.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNum0.Location = new System.Drawing.Point(90, 525);
+            this.btnNum0.Location = new System.Drawing.Point(89, 525);
             this.btnNum0.Name = "btnNum0";
             this.btnNum0.Size = new System.Drawing.Size(85, 55);
             this.btnNum0.TabIndex = 5;
@@ -377,10 +389,11 @@
             this.btnNum5.BorderRadius = 15;
             this.btnNum5.FlatAppearance.BorderSize = 0;
             this.btnNum5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNum5.Location = new System.Drawing.Point(90, 405);
+            this.btnNum5.Location = new System.Drawing.Point(89, 405);
             this.btnNum5.Name = "btnNum5";
             this.btnNum5.Size = new System.Drawing.Size(85, 55);
             this.btnNum5.TabIndex = 5;
+            this.btnNum5.Tag = "5";
             this.btnNum5.Text = "5";
             this.btnNum5.UseVisualStyleBackColor = false;
             this.btnNum5.Click += new System.EventHandler(this.Num_Click);
@@ -391,10 +404,11 @@
             this.btnNum8.BorderRadius = 15;
             this.btnNum8.FlatAppearance.BorderSize = 0;
             this.btnNum8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNum8.Location = new System.Drawing.Point(90, 345);
+            this.btnNum8.Location = new System.Drawing.Point(89, 345);
             this.btnNum8.Name = "btnNum8";
             this.btnNum8.Size = new System.Drawing.Size(85, 55);
             this.btnNum8.TabIndex = 5;
+            this.btnNum8.Tag = "8";
             this.btnNum8.Text = "8";
             this.btnNum8.UseVisualStyleBackColor = false;
             this.btnNum8.Click += new System.EventHandler(this.Num_Click);
@@ -418,7 +432,7 @@
             this.btnX2.BorderRadius = 15;
             this.btnX2.FlatAppearance.BorderSize = 0;
             this.btnX2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnX2.Location = new System.Drawing.Point(90, 285);
+            this.btnX2.Location = new System.Drawing.Point(89, 285);
             this.btnX2.Name = "btnX2";
             this.btnX2.Size = new System.Drawing.Size(85, 55);
             this.btnX2.TabIndex = 5;
@@ -435,6 +449,7 @@
             this.ctrlRoundedButton24.Name = "ctrlRoundedButton24";
             this.ctrlRoundedButton24.Size = new System.Drawing.Size(85, 55);
             this.ctrlRoundedButton24.TabIndex = 5;
+            this.ctrlRoundedButton24.Tag = ".";
             this.ctrlRoundedButton24.Text = ".";
             this.ctrlRoundedButton24.UseVisualStyleBackColor = false;
             this.ctrlRoundedButton24.Click += new System.EventHandler(this.Num_Click);
@@ -449,6 +464,7 @@
             this.btnNum6.Name = "btnNum6";
             this.btnNum6.Size = new System.Drawing.Size(85, 55);
             this.btnNum6.TabIndex = 5;
+            this.btnNum6.Tag = "6";
             this.btnNum6.Text = "6";
             this.btnNum6.UseVisualStyleBackColor = false;
             this.btnNum6.Click += new System.EventHandler(this.Num_Click);
@@ -463,6 +479,7 @@
             this.btnNum3.Name = "btnNum3";
             this.btnNum3.Size = new System.Drawing.Size(85, 55);
             this.btnNum3.TabIndex = 5;
+            this.btnNum3.Tag = "3";
             this.btnNum3.Text = "3";
             this.btnNum3.UseVisualStyleBackColor = false;
             this.btnNum3.Click += new System.EventHandler(this.Num_Click);
@@ -477,6 +494,7 @@
             this.btnNum9.Name = "btnNum9";
             this.btnNum9.Size = new System.Drawing.Size(85, 55);
             this.btnNum9.TabIndex = 5;
+            this.btnNum9.Tag = "9";
             this.btnNum9.Text = "9";
             this.btnNum9.UseVisualStyleBackColor = false;
             this.btnNum9.Click += new System.EventHandler(this.Num_Click);
@@ -487,12 +505,13 @@
             this.btnCE.BorderRadius = 15;
             this.btnCE.FlatAppearance.BorderSize = 0;
             this.btnCE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCE.Location = new System.Drawing.Point(90, 225);
+            this.btnCE.Location = new System.Drawing.Point(89, 225);
             this.btnCE.Name = "btnCE";
             this.btnCE.Size = new System.Drawing.Size(85, 55);
             this.btnCE.TabIndex = 5;
             this.btnCE.Text = "CE";
             this.btnCE.UseVisualStyleBackColor = false;
+            this.btnCE.Click += new System.EventHandler(this.btnCE_Click);
             // 
             // btnSquare
             // 
@@ -519,19 +538,22 @@
             this.btnC.TabIndex = 5;
             this.btnC.Text = "C";
             this.btnC.UseVisualStyleBackColor = false;
+            this.btnC.Click += new System.EventHandler(this.btnC_Click);
             // 
             // btnEqual
             // 
-            this.btnEqual.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.btnEqual.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(118)))), ((int)(((byte)(93)))));
             this.btnEqual.BorderRadius = 15;
             this.btnEqual.FlatAppearance.BorderSize = 0;
             this.btnEqual.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEqual.Location = new System.Drawing.Point(264, 525);
+            this.btnEqual.Location = new System.Drawing.Point(261, 525);
             this.btnEqual.Name = "btnEqual";
             this.btnEqual.Size = new System.Drawing.Size(85, 55);
             this.btnEqual.TabIndex = 5;
+            this.btnEqual.Tag = "=";
             this.btnEqual.Text = "=";
             this.btnEqual.UseVisualStyleBackColor = false;
+            this.btnEqual.Click += new System.EventHandler(this.btnEqual_Click);
             // 
             // btnSubtract
             // 
@@ -539,12 +561,14 @@
             this.btnSubtract.BorderRadius = 15;
             this.btnSubtract.FlatAppearance.BorderSize = 0;
             this.btnSubtract.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSubtract.Location = new System.Drawing.Point(264, 405);
+            this.btnSubtract.Location = new System.Drawing.Point(263, 405);
             this.btnSubtract.Name = "btnSubtract";
             this.btnSubtract.Size = new System.Drawing.Size(85, 55);
             this.btnSubtract.TabIndex = 5;
+            this.btnSubtract.Tag = "-";
             this.btnSubtract.Text = "-";
             this.btnSubtract.UseVisualStyleBackColor = false;
+            this.btnSubtract.Click += new System.EventHandler(this.Operations_Click);
             // 
             // btnAdd
             // 
@@ -552,12 +576,14 @@
             this.btnAdd.BorderRadius = 15;
             this.btnAdd.FlatAppearance.BorderSize = 0;
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAdd.Location = new System.Drawing.Point(264, 465);
+            this.btnAdd.Location = new System.Drawing.Point(263, 465);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(85, 55);
             this.btnAdd.TabIndex = 5;
+            this.btnAdd.Tag = "+";
             this.btnAdd.Text = "+";
             this.btnAdd.UseVisualStyleBackColor = false;
+            this.btnAdd.Click += new System.EventHandler(this.Operations_Click);
             // 
             // btnMultiply
             // 
@@ -565,12 +591,14 @@
             this.btnMultiply.BorderRadius = 15;
             this.btnMultiply.FlatAppearance.BorderSize = 0;
             this.btnMultiply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMultiply.Location = new System.Drawing.Point(264, 345);
+            this.btnMultiply.Location = new System.Drawing.Point(263, 345);
             this.btnMultiply.Name = "btnMultiply";
             this.btnMultiply.Size = new System.Drawing.Size(85, 55);
             this.btnMultiply.TabIndex = 5;
+            this.btnMultiply.Tag = "*";
             this.btnMultiply.Text = "×";
             this.btnMultiply.UseVisualStyleBackColor = false;
+            this.btnMultiply.Click += new System.EventHandler(this.Operations_Click);
             // 
             // btnDivition
             // 
@@ -578,12 +606,14 @@
             this.btnDivition.BorderRadius = 15;
             this.btnDivition.FlatAppearance.BorderSize = 0;
             this.btnDivition.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDivition.Location = new System.Drawing.Point(264, 285);
+            this.btnDivition.Location = new System.Drawing.Point(263, 285);
             this.btnDivition.Name = "btnDivition";
             this.btnDivition.Size = new System.Drawing.Size(85, 55);
             this.btnDivition.TabIndex = 5;
+            this.btnDivition.Tag = "/";
             this.btnDivition.Text = "÷";
             this.btnDivition.UseVisualStyleBackColor = false;
+            this.btnDivition.Click += new System.EventHandler(this.Operations_Click);
             // 
             // btnBackSpace
             // 
@@ -591,17 +621,20 @@
             this.btnBackSpace.BorderRadius = 15;
             this.btnBackSpace.FlatAppearance.BorderSize = 0;
             this.btnBackSpace.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBackSpace.Location = new System.Drawing.Point(264, 225);
+            this.btnBackSpace.Image = global::Modern_Calculator.Properties.Resources.Clear_Symbol;
+            this.btnBackSpace.Location = new System.Drawing.Point(263, 225);
             this.btnBackSpace.Name = "btnBackSpace";
             this.btnBackSpace.Size = new System.Drawing.Size(85, 55);
             this.btnBackSpace.TabIndex = 5;
             this.btnBackSpace.UseVisualStyleBackColor = false;
+            this.btnBackSpace.Click += new System.EventHandler(this.btnBackSpace_Click);
             // 
             // ctrlRoundedButton6
             // 
             this.ctrlRoundedButton6.BorderRadius = 15;
             this.ctrlRoundedButton6.FlatAppearance.BorderSize = 0;
             this.ctrlRoundedButton6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ctrlRoundedButton6.Font = new System.Drawing.Font("Myanmar Text", 10.8F, System.Drawing.FontStyle.Bold);
             this.ctrlRoundedButton6.Location = new System.Drawing.Point(59, 187);
             this.ctrlRoundedButton6.Name = "ctrlRoundedButton6";
             this.ctrlRoundedButton6.Size = new System.Drawing.Size(54, 32);
@@ -614,6 +647,7 @@
             this.ctrlRoundedButton5.BorderRadius = 15;
             this.ctrlRoundedButton5.FlatAppearance.BorderSize = 0;
             this.ctrlRoundedButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ctrlRoundedButton5.Font = new System.Drawing.Font("Myanmar Text", 10.8F, System.Drawing.FontStyle.Bold);
             this.ctrlRoundedButton5.Location = new System.Drawing.Point(0, 187);
             this.ctrlRoundedButton5.Name = "ctrlRoundedButton5";
             this.ctrlRoundedButton5.Size = new System.Drawing.Size(54, 32);
@@ -626,6 +660,7 @@
             this.ctrlRoundedButton4.BorderRadius = 15;
             this.ctrlRoundedButton4.FlatAppearance.BorderSize = 0;
             this.ctrlRoundedButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ctrlRoundedButton4.Font = new System.Drawing.Font("Myanmar Text", 10.8F, System.Drawing.FontStyle.Bold);
             this.ctrlRoundedButton4.Location = new System.Drawing.Point(118, 187);
             this.ctrlRoundedButton4.Name = "ctrlRoundedButton4";
             this.ctrlRoundedButton4.Size = new System.Drawing.Size(54, 32);
@@ -638,6 +673,7 @@
             this.ctrlRoundedButton3.BorderRadius = 15;
             this.ctrlRoundedButton3.FlatAppearance.BorderSize = 0;
             this.ctrlRoundedButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ctrlRoundedButton3.Font = new System.Drawing.Font("Myanmar Text", 10.8F, System.Drawing.FontStyle.Bold);
             this.ctrlRoundedButton3.Location = new System.Drawing.Point(177, 187);
             this.ctrlRoundedButton3.Name = "ctrlRoundedButton3";
             this.ctrlRoundedButton3.Size = new System.Drawing.Size(54, 32);
@@ -650,6 +686,7 @@
             this.ctrlRoundedButton2.BorderRadius = 15;
             this.ctrlRoundedButton2.FlatAppearance.BorderSize = 0;
             this.ctrlRoundedButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ctrlRoundedButton2.Font = new System.Drawing.Font("Myanmar Text", 10.8F, System.Drawing.FontStyle.Bold);
             this.ctrlRoundedButton2.Location = new System.Drawing.Point(236, 187);
             this.ctrlRoundedButton2.Name = "ctrlRoundedButton2";
             this.ctrlRoundedButton2.Size = new System.Drawing.Size(54, 32);
@@ -662,6 +699,7 @@
             this.ctrlRoundedButton1.BorderRadius = 15;
             this.ctrlRoundedButton1.FlatAppearance.BorderSize = 0;
             this.ctrlRoundedButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ctrlRoundedButton1.Font = new System.Drawing.Font("Myanmar Text", 10.8F, System.Drawing.FontStyle.Bold);
             this.ctrlRoundedButton1.Location = new System.Drawing.Point(295, 187);
             this.ctrlRoundedButton1.Name = "ctrlRoundedButton1";
             this.ctrlRoundedButton1.Size = new System.Drawing.Size(54, 32);
@@ -674,9 +712,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(350, 595);
-            this.Controls.Add(this.btn2);
-            this.Controls.Add(this.btn1);
             this.Controls.Add(this.btnPlusMinus);
+            this.Controls.Add(this.btnNum2);
+            this.Controls.Add(this.btnNum1);
             this.Controls.Add(this.btnNum4);
             this.Controls.Add(this.btnNum7);
             this.Controls.Add(this.btn1X);
@@ -740,7 +778,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button btnClearHistory;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox rtbHistory;
         private ctrlRoundedButton ctrlRoundedButton2;
         private ctrlRoundedButton ctrlRoundedButton3;
         private ctrlRoundedButton ctrlRoundedButton4;
@@ -772,8 +810,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnMenu;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button btn1;
-        private System.Windows.Forms.Button btn2;
+        private ctrlRoundedButton btnNum1;
+        private ctrlRoundedButton btnNum2;
     }
 }
 
