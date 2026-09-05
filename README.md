@@ -1,6 +1,7 @@
 ﻿# Modern Calculator
 
 A modern, feature-rich calculator application built with C# and Windows Forms, carefully designed to replicate the look, feel, and functionality of the **Windows 11 Calculator**. It provides a user-friendly clean interface with advanced mathematical operations, calculation history, and full keyboard support.
+<img width="1518" height="681" alt="A modern, feature-rich calculator application built with C# and Windows Forms, carefully designed to replicate the look, feel, and functionality of the **Windows 11 Calculator**. It provides a user-friendly clean interface with advanced mathematical operations, calculation history, and full keyboard support." src="https://github.com/user-attachments/assets/d5a8f771-d231-416f-9944-271a4a9c3c60" />
 
 ## Features
 
