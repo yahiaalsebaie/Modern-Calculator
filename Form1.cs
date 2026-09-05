@@ -28,13 +28,11 @@ namespace Modern_Calculator
             _originalFont = textBox1.Font;
 
         }
-
         private void AddToHistory(string calculation)
         {
             _calculationHistory.Add(calculation);
             UpdateHistoryDisplay();
         }
-
         private void UpdateHistoryDisplay()
         {
             rtbHistory.Clear();
@@ -50,7 +48,6 @@ namespace Modern_Calculator
                 }
             }
         }
-
         private void Num_Click(object sender, EventArgs e)
         {
             if (_isError) btnC.PerformClick();
@@ -78,7 +75,6 @@ namespace Modern_Calculator
             }
 
         }
-
         private void PerformOperationSymbols(ctrlRoundedButton btn)
         {
 
@@ -143,7 +139,6 @@ namespace Modern_Calculator
             _isNewEntry = true;
 
         }
-
         private string GetOperationSymbol(enOperation operation)
         {
             switch (operation)
@@ -265,7 +260,6 @@ namespace Modern_Calculator
             _isNewEntry = true;
 
         }
-
         private void btnEqual_Click(object sender, EventArgs e)
         {
             if (_isError)
@@ -325,12 +319,10 @@ namespace Modern_Calculator
 
             _isNewEntry = true;*/
         }
-
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
         private void btnC_Click(object sender, EventArgs e)
         {
             textBox1.Text = "0";
@@ -342,7 +334,6 @@ namespace Modern_Calculator
             if (_originalFont != null) textBox1.Font = _originalFont;
 
         }
-
         private void btnBackSpace_Click(object sender, EventArgs e)
         {
             if (_isError)
@@ -356,7 +347,6 @@ namespace Modern_Calculator
 
 
         }
-
         private void btnCE_Click(object sender, EventArgs e)
         {
             //    textBox1.Clear();
@@ -367,7 +357,7 @@ namespace Modern_Calculator
             }
             textBox1.Text = "0";
         }
-
+        
         // Remove Form Border & Create Your Own Title Bar | C# WinForms
         //---------------------------------------------------------------
 
@@ -409,7 +399,6 @@ namespace Modern_Calculator
             */
 
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             /*            foreach (Control control in Controls)
@@ -435,19 +424,16 @@ namespace Modern_Calculator
             textBox1.ReadOnly = true;
             textBox1.TabStop = false;
         }
-
         // How to Move a Borderless Form in C# WinForms
         private void pnlTitle_MouseDown(object sender, MouseEventArgs e)
         {
             _mouseLocation = e.Location;
         }
-
         private void btnMinimize_Click(object sender, EventArgs e)
         {
 
             this.WindowState = FormWindowState.Minimized;
         }
-
         private void btnHistory_Click(object sender, EventArgs e)
         {
 
@@ -464,12 +450,10 @@ namespace Modern_Calculator
             }
 
         }
-
         private void pnlTitle_Paint(object sender, PaintEventArgs e)
         {
 
         }
-
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if ((e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9 && !e.Shift) ||
@@ -566,13 +550,11 @@ namespace Modern_Calculator
                 }
             }
         }
-
         private void btnClearHistory_Click(object sender, EventArgs e)
         {
             rtbHistory.Clear();
             rtbHistory.Text = "There's no history.";
         }
-
         private void pnlTitle_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -583,7 +565,6 @@ namespace Modern_Calculator
                     Location.Y + e.Y - _mouseLocation.Y);
             }
         }
-
         private string FormattedNumber(double number)
         {
             return number.ToString("#,##0.#######################");
