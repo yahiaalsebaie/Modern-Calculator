@@ -36,13 +36,13 @@
             this.btnMaxmize = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.pnlHistory = new System.Windows.Forms.Panel();
-            this.rtbHistory = new System.Windows.Forms.RichTextBox();
             this.btnClearHistory = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnMenu = new System.Windows.Forms.Button();
             this.btnHistory = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.rtbHistory = new System.Windows.Forms.RichTextBox();
             this.btnPlusMinus = new ctrlRoundedButton();
             this.btnNum2 = new ctrlRoundedButton();
             this.btnNum1 = new ctrlRoundedButton();
@@ -92,6 +92,7 @@
             this.pnlTitle.Name = "pnlTitle";
             this.pnlTitle.Size = new System.Drawing.Size(350, 40);
             this.pnlTitle.TabIndex = 0;
+            this.pnlTitle.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlTitle_Paint);
             this.pnlTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlTitle_MouseDown);
             this.pnlTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlTitle_MouseMove);
             // 
@@ -130,7 +131,7 @@
             this.btnMinmize.Margin = new System.Windows.Forms.Padding(0);
             this.btnMinmize.Name = "btnMinmize";
             this.btnMinmize.Size = new System.Drawing.Size(37, 40);
-            this.btnMinmize.TabIndex = 0;
+            this.btnMinmize.TabIndex = 10;
             this.btnMinmize.UseVisualStyleBackColor = false;
             this.btnMinmize.Click += new System.EventHandler(this.btnMinimize_Click);
             // 
@@ -147,7 +148,7 @@
             this.btnMaxmize.Margin = new System.Windows.Forms.Padding(0);
             this.btnMaxmize.Name = "btnMaxmize";
             this.btnMaxmize.Size = new System.Drawing.Size(37, 40);
-            this.btnMaxmize.TabIndex = 0;
+            this.btnMaxmize.TabIndex = 11;
             this.btnMaxmize.UseVisualStyleBackColor = false;
             // 
             // btnClose
@@ -163,7 +164,7 @@
             this.btnClose.Margin = new System.Windows.Forms.Padding(0);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(37, 40);
-            this.btnClose.TabIndex = 0;
+            this.btnClose.TabIndex = 50;
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
@@ -171,26 +172,11 @@
             // 
             this.pnlHistory.Controls.Add(this.rtbHistory);
             this.pnlHistory.Controls.Add(this.btnClearHistory);
-            this.pnlHistory.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlHistory.Location = new System.Drawing.Point(0, 590);
+            this.pnlHistory.Location = new System.Drawing.Point(0, 182);
             this.pnlHistory.Margin = new System.Windows.Forms.Padding(0);
             this.pnlHistory.Name = "pnlHistory";
-            this.pnlHistory.Size = new System.Drawing.Size(350, 5);
+            this.pnlHistory.Size = new System.Drawing.Size(350, 364);
             this.pnlHistory.TabIndex = 1;
-            // 
-            // rtbHistory
-            // 
-            this.rtbHistory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.rtbHistory.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtbHistory.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbHistory.ForeColor = System.Drawing.Color.DarkGray;
-            this.rtbHistory.Location = new System.Drawing.Point(0, 0);
-            this.rtbHistory.Margin = new System.Windows.Forms.Padding(0);
-            this.rtbHistory.Name = "rtbHistory";
-            this.rtbHistory.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Horizontal;
-            this.rtbHistory.Size = new System.Drawing.Size(350, 0);
-            this.rtbHistory.TabIndex = 2;
-            this.rtbHistory.Text = "";
             // 
             // btnClearHistory
             // 
@@ -201,17 +187,19 @@
             this.btnClearHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearHistory.Font = new System.Drawing.Font("NSimSun", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearHistory.Image = ((System.Drawing.Image)(resources.GetObject("btnClearHistory.Image")));
-            this.btnClearHistory.Location = new System.Drawing.Point(0, -49);
+            this.btnClearHistory.Location = new System.Drawing.Point(0, 292);
             this.btnClearHistory.Margin = new System.Windows.Forms.Padding(0);
             this.btnClearHistory.Name = "btnClearHistory";
-            this.btnClearHistory.Size = new System.Drawing.Size(350, 54);
+            this.btnClearHistory.Size = new System.Drawing.Size(350, 72);
             this.btnClearHistory.TabIndex = 1;
             this.btnClearHistory.UseVisualStyleBackColor = false;
+            this.btnClearHistory.Click += new System.EventHandler(this.btnClearHistory_Click);
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.btnMenu);
             this.panel3.Controls.Add(this.btnHistory);
+            this.panel3.Controls.Add(this.pnlHistory);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 40);
             this.panel3.Margin = new System.Windows.Forms.Padding(0);
@@ -250,6 +238,7 @@
             this.btnHistory.Size = new System.Drawing.Size(35, 46);
             this.btnHistory.TabIndex = 0;
             this.btnHistory.UseVisualStyleBackColor = false;
+            this.btnHistory.Click += new System.EventHandler(this.btnHistory_Click);
             // 
             // textBox1
             // 
@@ -283,6 +272,20 @@
             this.textBox2.TabIndex = 3;
             this.textBox2.Text = "0";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // rtbHistory
+            // 
+            this.rtbHistory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.rtbHistory.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtbHistory.Dock = System.Windows.Forms.DockStyle.Top;
+            this.rtbHistory.ForeColor = System.Drawing.Color.DarkGray;
+            this.rtbHistory.Location = new System.Drawing.Point(0, 0);
+            this.rtbHistory.Margin = new System.Windows.Forms.Padding(0);
+            this.rtbHistory.Name = "rtbHistory";
+            this.rtbHistory.ReadOnly = true;
+            this.rtbHistory.Size = new System.Drawing.Size(350, 422);
+            this.rtbHistory.TabIndex = 3;
+            this.rtbHistory.Text = "";
             // 
             // btnPlusMinus
             // 
@@ -564,7 +567,7 @@
             this.btnEqual.Location = new System.Drawing.Point(261, 525);
             this.btnEqual.Name = "btnEqual";
             this.btnEqual.Size = new System.Drawing.Size(85, 55);
-            this.btnEqual.TabIndex = 5;
+            this.btnEqual.TabIndex = 0;
             this.btnEqual.Tag = "=";
             this.btnEqual.Text = "=";
             this.btnEqual.UseVisualStyleBackColor = false;
@@ -761,7 +764,6 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.pnlHistory);
             this.Controls.Add(this.pnlTitle);
             this.Font = new System.Drawing.Font("Myanmar Text", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
@@ -770,6 +772,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlTitle_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlTitle_MouseMove);
             this.pnlTitle.ResumeLayout(false);
@@ -794,7 +797,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button btnClearHistory;
-        private System.Windows.Forms.RichTextBox rtbHistory;
         private ctrlRoundedButton ctrlRoundedButton2;
         private ctrlRoundedButton ctrlRoundedButton3;
         private ctrlRoundedButton ctrlRoundedButton4;
@@ -828,6 +830,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private ctrlRoundedButton btnNum1;
         private ctrlRoundedButton btnNum2;
+        private System.Windows.Forms.RichTextBox rtbHistory;
     }
 }
 

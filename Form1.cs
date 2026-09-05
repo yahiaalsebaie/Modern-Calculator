@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -14,6 +15,7 @@ namespace Modern_Calculator
         private bool _hasResult = false;
         private bool _isError = false;
         private Font _originalFont;
+        private List<string> _calculationHistory = new List<string>();
         private enum enOperation
         {
             Add, Subtract, Multiply, Divide, Percentage, Reciprocal, SquareRoot, PowerOf2, Plus_Minus
@@ -24,9 +26,30 @@ namespace Modern_Calculator
         {
             InitializeComponent();
             _originalFont = textBox1.Font;
+
         }
 
+        private void AddToHistory(string calculation)
+        {
+            _calculationHistory.Add(calculation);
+            UpdateHistoryDisplay();
+        }
 
+        private void UpdateHistoryDisplay()
+        {
+            rtbHistory.Clear();
+            if (_calculationHistory.Count == 0)
+            {
+                rtbHistory.Text = "There's no history yet.";
+            }
+            else
+            {
+                for (int i = _calculationHistory.Count - 1; i >= 0; i--)
+                {
+                    rtbHistory.AppendText(_calculationHistory[i] + Environment.NewLine);
+                }
+            }
+        }
 
         private void Num_Click(object sender, EventArgs e)
         {
@@ -285,6 +308,11 @@ namespace Modern_Calculator
             textBox1.Text = FormattedNumber(_result);
             //      textBox2.Text += _secondNumber.ToString();
             textBox2.Text = $"{FormattedNumber(_firstNumber)} {GetOperationSymbol(operationToExecute)} {FormattedNumber(_secondNumber)} =";
+
+            // Add to history
+            string historyEntry = $"{FormattedNumber(_firstNumber)} {GetOperationSymbol(operationToExecute)} {FormattedNumber(_secondNumber)} = {FormattedNumber(_result)}";
+            AddToHistory(historyEntry);
+
             _isNewEntry = true;
             _hasResult = false;
             /*textBox1.Text = _result.ToString();
@@ -392,7 +420,20 @@ namespace Modern_Calculator
                             }
                         }
             */
+            btnClearHistory.Parent = pnlHistory;
+            pnlHistory.Visible = false;
+            pnlHistory.Height = 0;
+            pnlHistory.BringToFront();
+            btnClearHistory.BringToFront();
 
+            pnlHistory.Parent = this;
+            // Initialize history display
+            UpdateHistoryDisplay();
+
+            this.KeyPreview = true;
+            // this.KeyDown += Form1_KeyDown; //Duplicated numbers!
+            textBox1.ReadOnly = true;
+            textBox1.TabStop = false;
         }
 
         // How to Move a Borderless Form in C# WinForms
@@ -403,7 +444,133 @@ namespace Modern_Calculator
 
         private void btnMinimize_Click(object sender, EventArgs e)
         {
-           this.WindowState = FormWindowState.Minimized;
+
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void btnHistory_Click(object sender, EventArgs e)
+        {
+
+            if (pnlHistory.Height == 0)
+            {
+                pnlHistory.Visible = true;
+                pnlHistory.Height = 400;
+                pnlHistory.BringToFront();
+            }
+            else
+            {
+                pnlHistory.Visible = false;
+                pnlHistory.Height = 0;
+            }
+
+        }
+
+        private void pnlTitle_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9 && !e.Shift) ||
+                (e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9))
+            {
+                string numberPressed = e.KeyCode.ToString().Replace("D", "").Replace("NumPad", "");
+                ClickButtonByText(numberPressed);
+                e.SuppressKeyPress = true;
+                return;
+            }
+
+            switch (e.KeyCode)
+            {
+                case Keys.Add:
+                case Keys.Oemplus when e.Shift:
+                    ClickButtonByTag("+");
+                    e.SuppressKeyPress = true;
+                    break;
+
+                case Keys.Subtract:
+                case Keys.OemMinus when !e.Shift:
+                    ClickButtonByTag("-");
+                    e.SuppressKeyPress = true;
+                    break;
+
+                case Keys.Multiply:
+                case Keys.D8 when e.Shift:
+                    ClickButtonByTag("*");
+                    e.SuppressKeyPress = true;
+                    break;
+
+                case Keys.Divide:
+                case Keys.OemQuestion when !e.Shift:
+                    ClickButtonByTag("/");
+                    e.SuppressKeyPress = true;
+                    break;
+
+                case Keys.D5 when e.Shift:
+                    ClickButtonByTag("%");
+                    e.SuppressKeyPress = true;
+                    break;
+
+                case Keys.Decimal:
+                case Keys.OemPeriod:
+                    ClickButtonByText(".");
+                    e.SuppressKeyPress = true;
+                    break;
+
+                case Keys.Enter:
+                    e.SuppressKeyPress = true;
+                    e.Handled = true;
+                    btnEqual.PerformClick();
+                    break;
+
+
+                case Keys.Back:
+                    btnBackSpace.PerformClick();
+                    e.SuppressKeyPress = true;
+                    break;
+
+                case Keys.Escape:
+                    btnC.PerformClick();
+                    e.SuppressKeyPress = true;
+                    break;
+
+                case Keys.Delete:
+                    btnCE.PerformClick();
+                    e.SuppressKeyPress = true;
+                    break;
+            }
+
+        }
+        private void ClickButtonByText(string text)
+        {
+
+
+            foreach (Control ctrl in this.Controls)
+            {
+                if (ctrl is ctrlRoundedButton btn && btn.Text == text)
+                {
+                    btn.PerformClick();
+                    break;
+                }
+            }
+        }
+        private void ClickButtonByTag(string tag)
+        {
+            foreach (Control ctrl in this.Controls)
+            {
+                if (ctrl is ctrlRoundedButton btn && btn.Tag != null && btn.Tag.ToString() == tag)
+                {
+                    btn.PerformClick();
+                    break;
+                }
+            }
+        }
+
+        private void btnClearHistory_Click(object sender, EventArgs e)
+        {
+            rtbHistory.Clear();
+            rtbHistory.Text = "There's no history.";
         }
 
         private void pnlTitle_MouseMove(object sender, MouseEventArgs e)
